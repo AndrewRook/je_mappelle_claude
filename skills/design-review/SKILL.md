@@ -1,13 +1,12 @@
 ---
 name: design-review
-description: Personal code review checklist, layered on top of the built-in code-review skill. Use when the user asks to review code, review a diff, or invokes /design-review.
+description: Personal code design review guidelines. Use when the user asks to review code, review a diff, design new code, plan new features,
+or invokes /design-review.
 ---
 
-Run the built-in `code-review` skill first to get the standard correctness/simplification/efficiency pass.
-
-Then apply the guidelines below on top of that pass — these are additional things to check for that aren't covered (or aren't covered well enough) by the built-in review. Report any findings from this list alongside the built-in findings, noting which guideline they came from.
-
-This list is expected to grow over time as new guidelines are added.
+These are general design guidelines to help structure and organize code, as well as make it more reliable, flexible,
+and easier to maintain. They operate at a higher level than the core code review concepts in the built-in /code-review
+skill.
 
 ## Guidelines
 
