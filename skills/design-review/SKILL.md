@@ -36,3 +36,39 @@ skill.
   not easily testable). Additionally, don't make 1-2 line functions _just_ so those lines
   of code can be tested, unless they're really critical and complex. Those should be inlined
   to reduce boilerplate and enhance readability.
+
+- **Sanity-check implementation complexity against the naive approach.** When we choose to 
+  do a more complex/advanced approach to solve a problem, don't just focus on the value created by
+  the more complex code but balance that with the operational costs of the complexity. For example,
+  How many more lines of code will need to be maintained? Are we using advanced language features that
+  future maintainers may not know about?
+  If we decide that the complexity is truly worth those costs, document the justification.
+  Otherwise it's over-engineering.
+
+- **Treat `nonlocal` and `global` variables as smells.** 
+  Mutating an enclosing variable via `nonlocal` or `global` hides data flow and can lead to
+  very subtle bugs; these langauge features are also not newcomer-friendly. If a function or
+  module would require these in order to work as intended, strongly consider other options (up
+  to and including complete restructuring of the relevant parts of the codebase).
+
+- **Avoid function-in-function definitions where possible.** While there are some uses for defining
+  a function inside of another function's definition (e.g., decorators or simple lambdas), in general
+  this pattern is unnecessarily complex and makes writing tests more challenging. Be extra cautious
+  of approving code with functions defined this way.
+
+- **Don't carry a redundant identifier for a resource you already hold a handle to.** If a
+  job/message needs to reference an object (e.g. a volume, a file) the caller already resolved,
+  check whether it's re-deriving that object from a separately-threaded name/id it could avoid
+  by passing the handle through instead — or the reverse: passing a bigger identifier (e.g. a
+  fully-prefixed path) than the receiver needs when it already has the context to use the
+  narrower piece.
+
+- **Prefer the framework's supported mechanism over an environment hack.** `sys.path`
+  manipulation, monkeypatching, or other manual workarounds to make imports/wiring work are a
+  signal to check the framework's own docs/conventions (e.g. Modal's image/mount system) for a
+  built-in way to do the same thing before reaching for the hack.
+
+- **Check new code against the project's own module-boundary rules.** If the project documents
+  a split between shared code and consumer-specific code (e.g. a general `src/` vs. a
+  script-specific source directory), verify new code whose only real caller is one consumer
+  actually lives in that consumer's location rather than the shared one.
