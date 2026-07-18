@@ -1,6 +1,6 @@
 ---
-name: review-code
-description: Personal code review checklist, layered on top of the built-in code-review skill. Use when the user asks to review code, review a diff, or invokes /review-code.
+name: design-review
+description: Personal code review checklist, layered on top of the built-in code-review skill. Use when the user asks to review code, review a diff, or invokes /design-review.
 ---
 
 Run the built-in `code-review` skill first to get the standard correctness/simplification/efficiency pass.
@@ -34,4 +34,6 @@ This list is expected to grow over time as new guidelines are added.
   attributes of an object), then it should be explicitly ignored in coverage checks using a
   nocover pragma. There should be a comment directly before the pragma that explains why
   the function is not covered (usually because it deals with I/O or a database or something
-  not easily testable).
+  not easily testable). Additionally, don't make 1-2 line functions _just_ so those lines
+  of code can be tested, unless they're really critical and complex. Those should be inlined
+  to reduce boilerplate and enhance readability.
